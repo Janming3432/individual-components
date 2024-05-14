@@ -8,7 +8,7 @@ const addColor = (x) => {
       Math.floor(value)
     ].style.backgroundImage = `linear-gradient(to right, gold 0%, gold ${
       partial * 100
-    }%, white ${partial * 100}%, wheat 100%)`;
+    }%, wheat ${partial * 100}%, wheat 100%)`;
   }
   for (let i = Math.ceil(value); i <= x; ++i)
     stars[

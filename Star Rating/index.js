@@ -32,7 +32,7 @@ const removeColor = (x) => {
 };
 
 const changeColor = (x) => {
-  x = Math.floor(x * 100) / 100;
+  x = Math.floor(x * 10) / 10;
   const partial = x - Math.floor(x);
   const check = x === value - 1;
   if (x <= value) value = 0;

@@ -1,0 +1,51 @@
+/* body{
+    width: 100vw;
+    height: 100vh;
+} */
+div {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.seconds {
+    width: 0; 
+    height: 0; 
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent; 
+    border-bottom: 250px solid red;
+    transform: rotate(10deg);
+    transform-origin: bottom;
+    z-index: 1;
+}
+.minutes {
+    width: 0; 
+    height: 0; 
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent; 
+    border-bottom: 250px solid green;
+    transform: rotate(20deg);
+    transform-origin: bottom;
+    z-index: 2;
+}
+.hours {
+    width: 0; 
+    height: 0; 
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent; 
+    border-bottom: 250px solid blue;
+    transform: rotate(30deg);
+    transform-origin: bottom;
+    z-index: 3;
+}
+
+/* .center{
+    width: 0; 
+    height: 0; 
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent; 
+    border-bottom: 250px solid black;
+    z-index: 10;
+} */

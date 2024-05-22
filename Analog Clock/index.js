@@ -7,9 +7,9 @@ function adjustHeight() {
   var clock = document.querySelector(".clock");
   var width = clock.offsetWidth;
   clock.style.height = width + "px";
-  seconds.style.borderBottom = `${width / 2}px solid red`;
-  minutes.style.borderBottom = `${width / 2}px solid green`;
-  hours.style.borderBottom = `${width / 2}px solid blue`;
+  seconds.style.borderBottom = `${(width * 4) / 10}px solid red`;
+  minutes.style.borderBottom = `${(width * 4) / 10}px solid green`;
+  hours.style.borderBottom = `${(width * 4) / 10}px solid blue`;
 }
 
 window.onload = adjustHeight;
@@ -27,12 +27,17 @@ const changeTime = () => {
   }deg)`;
 
   hours.style.transform = `rotate(${
-    (currTime.getHours() % 12) * 6 +
+    (currTime.getHours() % 12) * 30 +
     currTime.getMinutes() / 10 +
     currTime.getSeconds() / 100
   }deg)`;
-
-  time.textContent = currTime.getHours() + ":" + currTime.getMinutes() + ":" + currTime.getSeconds()
+  
+  time.textContent =
+    currTime.getHours() +
+    ":" +
+    currTime.getMinutes() +
+    ":" +
+    currTime.getSeconds();
 };
 
 setInterval(changeTime, 1000);

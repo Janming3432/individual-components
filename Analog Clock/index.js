@@ -1,8 +1,21 @@
-var currTime = new Date();
+const seconds = document.querySelector(".seconds");
+const minutes = document.querySelector(".minutes");
+const hours = document.querySelector(".hours");
+const time = document.querySelector(".time");
 
-const seconds = document.getElementsByClassName("seconds")[0];
-const minutes = document.getElementsByClassName("minutes")[0];
-const hours = document.getElementsByClassName("hours")[0];
+function adjustHeight() {
+  var clock = document.querySelector(".clock");
+  var width = clock.offsetWidth;
+  clock.style.height = width + "px";
+  seconds.style.borderBottom = `${width / 2}px solid red`;
+  minutes.style.borderBottom = `${width / 2}px solid green`;
+  hours.style.borderBottom = `${width / 2}px solid blue`;
+}
+
+window.onload = adjustHeight;
+window.onresize = adjustHeight;
+
+var currTime = new Date();
 
 const changeTime = () => {
   var currTime = new Date();
@@ -10,8 +23,7 @@ const changeTime = () => {
   seconds.style.transform = `rotate(${currTime.getSeconds() * 6}deg)`;
 
   minutes.style.transform = `rotate(${
-    currTime.getMinutes() * 6 + 
-    currTime.getSeconds() / 10
+    currTime.getMinutes() * 6 + currTime.getSeconds() / 10
   }deg)`;
 
   hours.style.transform = `rotate(${
@@ -20,13 +32,7 @@ const changeTime = () => {
     currTime.getSeconds() / 100
   }deg)`;
 
-//   console.log(
-//     currTime.getSeconds() * 6,
-//     currTime.getMinutes() * 6 + (currTime.getSeconds() % 60) / 10,
-//     (currTime.getHours() % 12) * 6 +
-//       currTime.getMinutes() / 10 +
-//       currTime.getSeconds() / 100
-//   );
+  time.textContent = currTime.getHours() + ":" + currTime.getMinutes() + ":" + currTime.getSeconds()
 };
 
 setInterval(changeTime, 1000);

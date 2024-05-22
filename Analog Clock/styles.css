@@ -1,51 +1,35 @@
-/* body{
-    width: 100vw;
-    height: 100vh;
-} */
-div {
-  position: absolute;
-  top: 0;
-  bottom: 20vh;
-  left: 0;
-  right: 0;
-  margin: auto;
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  height: 100%;
+  margin: 0;
+  flex-direction: column;
 }
-.seconds {
-    width: 0; 
-    height: 0; 
-    border-left: 3px solid transparent;
-    border-right: 3px solid transparent; 
-    border-bottom: 250px solid red;
-    transform: rotate(10deg);
-    transform-origin: bottom;
-    z-index: 1;
-}
-.minutes {
-    width: 0; 
-    height: 0; 
-    border-left: 3px solid transparent;
-    border-right: 3px solid transparent; 
-    border-bottom: 250px solid green;
-    transform: rotate(20deg);
-    transform-origin: bottom;
-    z-index: 2;
-}
+.seconds,
+.minutes,
 .hours {
-    width: 0; 
-    height: 0; 
-    border-left: 3px solid transparent;
-    border-right: 3px solid transparent; 
-    border-bottom: 250px solid blue;
-    transform: rotate(30deg);
-    transform-origin: bottom;
-    z-index: 3;
+  width: 0;
+  height: 0;
+  border-left: 3px solid transparent;
+  border-right: 3px solid transparent;
+  transform-origin: bottom;
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
 }
 
-/* .center{
-    width: 0; 
-    height: 0; 
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent; 
-    border-bottom: 250px solid black;
-    z-index: 10;
-} */
+.clock {
+  position: relative;
+  width: 30vw;
+  padding: 1vw;
+  margin: 5%;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.time {
+  font-size: calc(3vw + 3vh);
+  color: white;
+}

@@ -1,0 +1,52 @@
+.caraousel{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.caraousel .div:not(:first-child){
+    margin: -100%;
+}
+.image{
+    position: relative;
+    width: 30vw;
+    height: 30vh;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    display: none;
+    overflow: hidden;
+    transition: transform 0.5s ease-in-out;
+}
+.btn{
+    position: absolute;
+    top: 50%;
+    bottom: 50%;
+}
+.left{
+    left: 0;
+}
+.right{
+    right: 0;
+}
+
+.active{
+    display: block;
+    transform: translateX(0%);
+}
+.slide-left{
+    animation: leftSlide 0.5s infinite alternate
+    /* transform: translateX(-100%); */
+}
+.slide-right{
+    transform: translateX(100%);
+}
+
+@keyframes leftSlide{
+    0%{
+      transform: translateX(0%);
+    }
+    100%{
+        transform: translateX(-100%);
+      /* display: none; */
+    }
+  }

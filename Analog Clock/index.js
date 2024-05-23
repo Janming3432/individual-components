@@ -7,9 +7,9 @@ function adjustHeight() {
   var clock = document.querySelector(".clock");
   var width = clock.offsetWidth;
   clock.style.height = width + "px";
-  seconds.style.borderBottom = `${(width * 4) / 10}px solid red`;
-  minutes.style.borderBottom = `${(width * 4) / 10}px solid green`;
-  hours.style.borderBottom = `${(width * 4) / 10}px solid blue`;
+  seconds.style.borderBottom = `${(width * 4) / 10}px solid black`;
+  minutes.style.borderBottom = `${(width * 3.2) / 10}px solid black`;
+  hours.style.borderBottom = `${(width * 2.7) / 10}px solid black`;
 }
 
 window.onload = adjustHeight;
@@ -28,8 +28,8 @@ const changeTime = () => {
 
   hours.style.transform = `rotate(${
     (currTime.getHours() % 12) * 30 +
-    currTime.getMinutes() / 10 +
-    currTime.getSeconds() / 100
+    currTime.getMinutes() / 2 +
+    currTime.getSeconds() / 120
   }deg)`;
   
   time.textContent =

@@ -44,14 +44,16 @@ let elements = [];
 const parent = document.querySelector(".caraousel");
 createCaraousel(images);
 function createCaraousel(images) {
-  
   images.forEach((image, count) => {
+    const item = document.createElement("div");
+    item.classList.add("caraousel-item");
     const div = document.createElement("div");
     div.style.backgroundImage = `url(${image.src})`;
     div.classList.add("image");
-    if (count === 0) div.classList.add("active");
-    parent.appendChild(div);
-    elements.push(div);
+    if (count === 0) item.classList.add("active");
+    item.appendChild(div);
+    parent.appendChild(item);
+    elements.push(item);
   });
 }
 
@@ -59,26 +61,30 @@ function slideElements(add) {
   const currImage = elements[idx];
   idx = (idx + add + images.length) % images.length;
   const nextImage = elements[idx];
+  nextImage.style.zIndex = "1";
+  currImage.style.zIndex = "-1";
   if (add === 1) {
-    currImage.classList.add("slide-right");
-    nextImage.classList.add("active", "slide-left");
-    setTimeout(() => {
-      currImage.classList.remove("active", "slide-right");
-      nextImage.classList.remove("slide-left");
-    }, 500);
-  } else {
     currImage.classList.add("slide-left");
-    nextImage.classList.add("active", "slide-right");
+    nextImage.classList.add("active");
     setTimeout(() => {
-      currImage.classList.remove("active", "slide-left");
       nextImage.classList.remove("slide-right");
-    }, 500);
+      currImage.classList.remove("active", "slide-left");
+    }, 300);
+  } else {
+    currImage.classList.add("slide-right");
+    // nextImage.classList.remove("slide-left");
+    nextImage.classList.add("active");
+    setTimeout(() => {
+      // nextImage.classList.remove("slide-left");
+      currImage.classList.remove("active", "slide-right");
+    }, 300);
   }
   console.log(idx);
 }
 
-const leftButton = document.createElement("button");
-const rightButton = document.createElement("button");
+const leftButton = document.querySelector(".left");
+const rightButton = document.querySelector(".right");
+console.log(leftButton, rightButton);
 
 leftButton.addEventListener("click", (event) => {
   slideElements(-1);
@@ -87,10 +93,10 @@ rightButton.addEventListener("click", (event) => {
   slideElements(1);
 });
 
-leftButton.classList.add("left");
-leftButton.classList.add("btn");
-rightButton.classList.add("right");
-rightButton.classList.add("btn");
+// leftButton.classList.add("left");
+// leftButton.classList.add("btn");
+// rightButton.classList.add("right");
+// rightButton.classList.add("btn");
 
-parent.appendChild(leftButton);
-parent.appendChild(rightButton);
+// parent.appendChild(leftButton);
+// parent.appendChild(rightButton);

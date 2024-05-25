@@ -2,11 +2,17 @@
   box-sizing: border-box;
 } */
 
-body {
+html,body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  background-color: black;
+  /* height: 100vh; */
 }
 
 .caraousel {
@@ -22,7 +28,6 @@ body {
   height: 30vh;
   border: none;
   top: 0;
-  /* left: 100%; */
   display: none;
 }
 .image {
@@ -32,8 +37,21 @@ body {
   background-repeat: no-repeat;
 }
 
-.elements button {
-  margin: 3px;
+.elements{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30vw;
+  margin: 1.5%;
+  padding: 1%;
+}
+
+.index.current{
+  background-color: aliceblue;
+  opacity: 1.5;
+}
+.index {
+  margin: 1.5%;
   width: 2vw;
   height: 1vh;
   border: none;
@@ -41,11 +59,13 @@ body {
   opacity: 0.5;
 }
 
-.elements button:hover {
+.index:hover{
   cursor: pointer;
   background-color: aliceblue;
   opacity: 2;
 }
+
+
 .btn {
   width: 1.5vw;
   height: 1.5vw;
@@ -63,7 +83,8 @@ body {
 }
 .btn:hover {
   cursor: pointer;
-  opacity: 1;
+  background-color: aliceblue;
+  opacity: 2;
 }
 .btn svg {
   height: 1.2vw;

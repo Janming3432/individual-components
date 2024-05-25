@@ -1,23 +1,27 @@
-// Authorization: 'Client-ID uTZvkAsCtGpVTTU779KkPcQK0XkDIQdxILMqU23rkWk'
+let idx = 0;
+let elements = { images: [], buttons: [] };
+const parent = document.querySelector(".caraousel");
+const buttons = document.querySelector(".elements");
+
 const val = Math.floor(Math.random() * 8) + 3;
 // console.log(val);
 const UNSPLASH_API_URL = "https://api.unsplash.com/photos/random?count=" + val;
 const UNSPLASH_ACCESS_KEY = "uTZvkAsCtGpVTTU779KkPcQK0XkDIQdxILMqU23rkWk";
-// async function fetchImagesArray(){
-//     const response = await fetch(UNSPLASH_API_URL, {
-//         headers: {
-//             'Authorization': `Client-ID ${UNSPLASH_ACCESS_KEY}`
-//         }
-//     });
-//     if(response.status===403){
-//         createCaraousel(new Array(val));
-//         return;
-//     }
-//     const images = await response.json();
-//     // console.log(images);
-//     createCaraousel(images);
-// }
-// fetchImagesArray();
+async function fetchImagesArray(){
+    const response = await fetch(UNSPLASH_API_URL, {
+        headers: {
+            'Authorization': `Client-ID ${UNSPLASH_ACCESS_KEY}`
+        }
+    });
+    if(response.status===403){
+        createCaraousel(new Array(val));
+        return;
+    }
+    const images = await response.json();
+    // console.log(images);
+    createCaraousel(images);
+}
+fetchImagesArray();
 const images = [
   {
     src: "https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg",
@@ -39,44 +43,47 @@ const images = [
   },
 ];
 
-let idx = 0;
-let elements = [];
-const parent = document.querySelector(".caraousel");
-const buttons = document.querySelector(".elements");
-createCaraousel(images);
+// createCaraousel(images);
 function createCaraousel(images) {
   images.forEach((image, count) => {
     const item = document.createElement("div");
     item.classList.add("caraousel-item");
     const div = document.createElement("div");
-    div.style.backgroundImage = `url(${image.src})`;
+    div.style.backgroundImage = `url(${image.urls.regular})`;
+    // div.style.backgroundImage = `url(${image.src})`;
     div.classList.add("image");
-    if (count === 0) item.classList.add("active");
     item.appendChild(div);
     parent.appendChild(item);
-    elements.push(item);
+    elements.images.push(item);
     const btn = document.createElement("button");
-    // btn.classList.add('btn');
-    btn.addEventListener("click", (event) => slideElements(count));
+    if (count === 0) {
+      item.classList.add("active");
+      btn.classList.add("current");
+    }
+    btn.classList.add("index");
+    btn.addEventListener("click", (event) => {
+      slideElements(count);
+    });
     buttons.appendChild(btn);
+    elements.buttons.push(btn);
   });
 }
 
 function getMinimumDistance(idx, nextIdx) {
   if (nextIdx > idx) {
-    if (nextIdx - idx < idx + images.length - nextIdx) return 1;
+    if (nextIdx - idx < idx + elements.images.length - nextIdx) return 1;
     else return -1;
   } else {
-    if (idx - nextIdx < nextIdx + images.length - idx) return -1;
+    if (idx - nextIdx < nextIdx + elements.images.length - idx) return -1;
     else return 1;
   }
 }
 function slideElements(nextIdx) {
   if (nextIdx === idx) return;
   const dist = getMinimumDistance(idx, nextIdx);
-  const currImage = elements[idx];
-  const nextImage = elements[nextIdx];
-  console.log(dist);
+  const currImage = elements.images[idx];
+  const nextImage = elements.images[nextIdx];
+
   if (dist === 1) {
     currImage.classList.add("slide-left1");
     nextImage.classList.add("slide-right1", "active");
@@ -94,6 +101,9 @@ function slideElements(nextIdx) {
       currImage.classList.remove("slide-right2");
     }, 300);
   }
+
+  elements.buttons[idx].classList.remove("current");
+  elements.buttons[nextIdx].classList.add("current");
   idx = nextIdx;
 }
 
@@ -110,8 +120,8 @@ function resize() {
   rightButton.style.bottom = parent.offsetHeight / 2 + "px";
 }
 leftButton.addEventListener("click", (event) => {
-  slideElements((idx - 1 + images.length) % images.length);
+  slideElements((idx - 1 + elements.images.length) % elements.images.length);
 });
 rightButton.addEventListener("click", (event) => {
-  slideElements((idx + 1) % images.length);
+  slideElements((idx + 1) % elements.images.length);
 });

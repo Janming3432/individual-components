@@ -42,6 +42,7 @@ const images = [
 let idx = 0;
 let elements = [];
 const parent = document.querySelector(".caraousel");
+const buttons = document.querySelector(".elements");
 createCaraousel(images);
 function createCaraousel(images) {
   images.forEach((image, count) => {
@@ -54,49 +55,63 @@ function createCaraousel(images) {
     item.appendChild(div);
     parent.appendChild(item);
     elements.push(item);
+    const btn = document.createElement("button");
+    // btn.classList.add('btn');
+    btn.addEventListener("click", (event) => slideElements(count));
+    buttons.appendChild(btn);
   });
 }
 
-function slideElements(add) {
+function getMinimumDistance(idx, nextIdx) {
+  if (nextIdx > idx) {
+    if (nextIdx - idx < idx + images.length - nextIdx) return 1;
+    else return -1;
+  } else {
+    if (idx - nextIdx < nextIdx + images.length - idx) return -1;
+    else return 1;
+  }
+}
+function slideElements(nextIdx) {
+  if (nextIdx === idx) return;
+  const dist = getMinimumDistance(idx, nextIdx);
   const currImage = elements[idx];
-  idx = (idx + add + images.length) % images.length;
-  const nextImage = elements[idx];
-  nextImage.style.zIndex = "1";
-  currImage.style.zIndex = "-1";
-  if (add === 1) {
-    currImage.classList.add("slide-left");
-    nextImage.classList.add("active");
+  const nextImage = elements[nextIdx];
+  console.log(dist);
+  if (dist === 1) {
+    currImage.classList.add("slide-left1");
+    nextImage.classList.add("slide-right1", "active");
     setTimeout(() => {
-      nextImage.classList.remove("slide-right");
-      currImage.classList.remove("active", "slide-left");
+      currImage.classList.remove("active");
+      nextImage.classList.remove("slide-right1");
+      currImage.classList.remove("slide-left1");
     }, 300);
   } else {
-    currImage.classList.add("slide-right");
-    // nextImage.classList.remove("slide-left");
-    nextImage.classList.add("active");
+    currImage.classList.add("slide-right2");
+    nextImage.classList.add("slide-left2", "active");
     setTimeout(() => {
-      // nextImage.classList.remove("slide-left");
-      currImage.classList.remove("active", "slide-right");
+      currImage.classList.remove("active");
+      nextImage.classList.remove("slide-left2");
+      currImage.classList.remove("slide-right2");
     }, 300);
   }
-  console.log(idx);
+  idx = nextIdx;
 }
 
 const leftButton = document.querySelector(".left");
 const rightButton = document.querySelector(".right");
-console.log(leftButton, rightButton);
-
+leftButton.style.left = "0";
+rightButton.style.right = "0";
+window.onload = resize;
+window.onresize = resize;
+function resize() {
+  leftButton.style.top = parent.offsetHeight / 2 + "px";
+  leftButton.style.bottom = parent.offsetHeight / 2 + "px";
+  rightButton.style.top = parent.offsetHeight / 2 + "px";
+  rightButton.style.bottom = parent.offsetHeight / 2 + "px";
+}
 leftButton.addEventListener("click", (event) => {
-  slideElements(-1);
+  slideElements((idx - 1 + images.length) % images.length);
 });
 rightButton.addEventListener("click", (event) => {
-  slideElements(1);
+  slideElements((idx + 1) % images.length);
 });
-
-// leftButton.classList.add("left");
-// leftButton.classList.add("btn");
-// rightButton.classList.add("right");
-// rightButton.classList.add("btn");
-
-// parent.appendChild(leftButton);
-// parent.appendChild(rightButton);

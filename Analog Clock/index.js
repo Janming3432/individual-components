@@ -39,5 +39,5 @@ const changeTime = () => {
     ":" +
     currTime.getSeconds();
 };
-
+changeTime();
 setInterval(changeTime, 1000);
